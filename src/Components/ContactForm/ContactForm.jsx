@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actions from '../../redux/actions';
+import * as operations from '../../redux/operations';
 import { getContacts } from '../../redux/selectors';
 import { Form, Input, Label, Button, Name, Number } from './ContactForm.styled';
 import { HiUser, HiPhone } from 'react-icons/hi';
@@ -11,6 +11,8 @@ export default function ContactForm() {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const onSubmit = (name, number) => dispatch(operations.addContact(name, number));
 
   const newContact = () => {
     const includeName = contacts.reduce(
@@ -53,7 +55,7 @@ export default function ContactForm() {
       return;
     }
 
-    dispatch(actions.addContact(name, number));
+    onSubmit(name, number);
   };
 
   const resetName = () => {
